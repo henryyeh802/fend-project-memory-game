@@ -1,5 +1,5 @@
 /*
- * Create a list that holds all of your cards
+ * Create a list that holds all of the card symbols
  */
 const cards = [
 	'fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 
@@ -9,7 +9,7 @@ const cards = [
 
 let openedCards = [];
 let moveCount = 0;
-const congrats = document.querySelector(".congrats-msg");
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -20,6 +20,7 @@ gameInit();
 
 function gameInit() {
 	moveCount = 0;
+	displayMoves();
 	shuffle(cards);
 	cardInit();
 }
@@ -84,8 +85,6 @@ deck.addEventListener('click', function(e){
 		if (currentCard.classList.contains("fa")) {
 			currentCard = currentCard.parentElement;
 		}
-		// console.log(currentCard);
-		// console.log(currentCard.classList);
 
 		// Check if the clicked card is hidden
 		if (currentCard.classList.contains("open") === false){
@@ -102,9 +101,19 @@ deck.addEventListener('click', function(e){
 	}	
 });
 
+// increment the move counter and display it on the page
 function calMove() {
 	moveCount++;
 	console.log("moveCount: " + moveCount);
+	displayMoves();
+}
+
+function displayMoves() {
+	const moves = document.querySelectorAll(".moves");
+	moves.forEach(function(move){
+		move.innerHTML = moveCount;
+		console.log(move.innerHTML);
+	})
 }
 
 // Add card to the *list* of "open" cards
@@ -122,7 +131,6 @@ function matchCards(currentCard, openedCards) {
 	let totalCardInList = openedCards.length;
 	let cardToCompare = openedCards[totalCardInList-2];
 
-	// console.log(cardToCompare.classList.contains("match"));
 	//if the list already has another card (not a already matched one), check to see if the two cards match
 	if ((totalCardInList > 1) && (cardToCompare.classList.contains("match") === false)) {
 		let iconOfCurrentCard = currentCard.childNodes[0].classList.value;
@@ -130,12 +138,10 @@ function matchCards(currentCard, openedCards) {
 		
 		if (iconOfCurrentCard === iconOfCardToCompare) {
 			// cards match, lock the card in the open position
-			// console.log("matched!");
 			lockCard(currentCard);
 			lockCard(openedCards[totalCardInList-2])
 		} else {
 			// cards do not match, remove the cards from the list and hide the card's symbol
-			// console.log("not match");
 			setTimeout(function(){
 				hideCard(currentCard);
 				hideCard(cardToCompare);
@@ -155,10 +161,10 @@ function lockCard(card) {
 // hide the card if not a match
 function hideCard(card) {
 	card.classList.remove("open", "show");
-	// openedCards.pop();
 }
 
 const playAgain = document.querySelector(".play-again");
+const congrats = document.querySelector(".congrats-msg");
 
 playAgain.addEventListener('click', function(){
 	congrats.classList.add("hide");

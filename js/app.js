@@ -7,6 +7,14 @@ const cards = [
 	'fa-diamond', 'fa-bomb', 'fa-leaf', 'fa-bomb', 
 	'fa-bolt', 'fa-bicycle', 'fa-paper-plane-o', 'fa-cube'];
 
+const starCongrats = document.querySelector(".star-congrats");	
+const restartGame = document.querySelector(".restart");
+const deck = document.querySelector(".deck");
+const playAgain = document.querySelector(".play-again");
+const congrats = document.querySelector(".congrats-msg");
+
+let firstStar = document.querySelector('.stars li i');
+let secondStar = document.querySelector('.stars li:nth-child(2) i');
 let openedCards = [];
 let moveCount = 0;
 
@@ -21,6 +29,7 @@ gameInit();
 function gameInit() {
 	moveCount = 0;
 	displayMoves();
+	resetStars();
 	shuffle(cards);
 	cardInit();
 }
@@ -40,7 +49,7 @@ function cardInit() {
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -53,14 +62,6 @@ function shuffle(array) {
     return array;
 }
 
-// Restart the game
-const restartGame = document.querySelector(".restart");
-
-restartGame.addEventListener('click', function(){
-	gameInit();
-});
-
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -71,9 +72,6 @@ restartGame.addEventListener('click', function(){
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
-// const totalCardInList = openedCards.length;
-const deck = document.querySelector(".deck");
 
 // Set up the event listener for a card
 deck.addEventListener('click', function(e){
@@ -91,6 +89,7 @@ deck.addEventListener('click', function(e){
 			displayCardSymbol(currentCard);
 			addCardToOpenedList(currentCard);
 			calMove();
+			calStars();
 			matchCards(currentCard, openedCards);		
 		}
 
@@ -100,6 +99,39 @@ deck.addEventListener('click', function(e){
 		}		
 	}	
 });
+
+// play again
+playAgain.addEventListener('click', function(){
+	congrats.classList.add("hide");
+	gameInit();
+})
+
+// Restart the game
+restartGame.addEventListener('click', function(){
+	gameInit();
+});
+
+// display stars based on current moveCount
+function calStars() {
+
+	if (moveCount > 20 && moveCount < 40) {
+		// 2 stars
+		firstStar.setAttribute("class", "fa fa-star-o");
+		starCongrats.innerHTML = "2";
+	} else if (moveCount >= 40) {
+		// 1 star
+		secondStar.setAttribute("class", "fa fa-star-o");
+		starCongrats.innerHTML = "1";
+	}
+}
+
+function resetStars() {
+	let stars = document.querySelectorAll('.stars li i');
+	stars.forEach(function(star) {
+		star.setAttribute("class", "fa fa-star");
+	})
+	starCongrats.innerHTML = "3";
+}
 
 // increment the move counter and display it on the page
 function calMove() {
@@ -162,11 +194,3 @@ function lockCard(card) {
 function hideCard(card) {
 	card.classList.remove("open", "show");
 }
-
-const playAgain = document.querySelector(".play-again");
-const congrats = document.querySelector(".congrats-msg");
-
-playAgain.addEventListener('click', function(){
-	congrats.classList.add("hide");
-	gameInit();
-})

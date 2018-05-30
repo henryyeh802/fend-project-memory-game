@@ -30,7 +30,7 @@ let intervId;
  */
 gameInit();
 
-// Game initialize
+// Game initialization
 function gameInit() {
 	moveCount = 0;
 	time = 0;

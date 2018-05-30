@@ -4,7 +4,7 @@
 
 * [Introductions](#introductions)
 * [GameFlow](#gameflow)
-* [Dependencies/Resources](#Dependencies)
+* [Dependencies](#Dependencies)
 
 ## Introductions
 
@@ -23,7 +23,9 @@ The game ends once all cards have been correctly matched.
 
 ![alt text](doc/OverallGameFlow.jpg?raw=true "Title")
 
-## Dependencies/Resources
+## Dependencies
+
+List of the dependencies/Resources referenced:
 
 * fend-project-memory-game starter code forked from [udacity/fend-project-memory-game](https://github.com/udacity/fend-project-memory-game)
 * font-awesome from [maxcdn.bootstrapcdn.com](https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css)

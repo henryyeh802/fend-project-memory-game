@@ -84,13 +84,13 @@ deck.addEventListener('click', function(e){
 			currentCard = currentCard.parentElement;
 		}
 
-		// Check if the clicked card is hidden
+		// Do cards matching if the clicked card is hidden
 		if (currentCard.classList.contains("open") === false){
 			displayCardSymbol(currentCard);
 			addCardToOpenedList(currentCard);
 			calMove();
 			calStars();
-			matchCards(currentCard, openedCards);		
+			matchCards(currentCard, openedCards);
 		}
 
 		// display a message with the final score if all cards have matched
@@ -100,7 +100,7 @@ deck.addEventListener('click', function(e){
 	}	
 });
 
-// play again
+// play again after finished the game
 playAgain.addEventListener('click', function(){
 	congrats.classList.add("hide");
 	gameInit();
@@ -136,15 +136,13 @@ function resetStars() {
 // increment the move counter and display it on the page
 function calMove() {
 	moveCount++;
-	console.log("moveCount: " + moveCount);
 	displayMoves();
 }
 
 function displayMoves() {
-	const moves = document.querySelectorAll(".moves");
+	let moves = document.querySelectorAll(".moves");
 	moves.forEach(function(move){
 		move.innerHTML = moveCount;
-		console.log(move.innerHTML);
 	})
 }
 
@@ -168,12 +166,18 @@ function matchCards(currentCard, openedCards) {
 		let iconOfCurrentCard = currentCard.childNodes[0].classList.value;
 		let iconOfCardToCompare = cardToCompare.childNodes[0].classList.value;
 		
+		// cards match, play animate and lock the card in the open position
 		if (iconOfCurrentCard === iconOfCardToCompare) {
-			// cards match, lock the card in the open position
 			lockCard(currentCard);
-			lockCard(openedCards[totalCardInList-2])
+			lockCard(cardToCompare)
+			matchAnimate(currentCard, cardToCompare);
+			setTimeout(function() {
+				lockCard(currentCard);
+				lockCard(cardToCompare)				
+			}, 500);
 		} else {
-			// cards do not match, remove the cards from the list and hide the card's symbol
+			// cards do not match, play animation then remove the cards from the list and hide the card's symbol
+			unmatchAnimate(currentCard, cardToCompare);
 			setTimeout(function(){
 				hideCard(currentCard);
 				hideCard(cardToCompare);
@@ -182,15 +186,26 @@ function matchCards(currentCard, openedCards) {
 			}, 500);
 		}	
 	}
-	console.log("totalCardInList: " + totalCardInList);
+}
+
+// play animate if cards match
+function matchAnimate(cardOne, cardTwo) {
+	cardOne.classList.add("animated", "infinite", "jello");
+	cardTwo.classList.add("animated", "infinite", "jello");
+}
+
+// play animate if cards not match
+function unmatchAnimate(cardOne, cardTwo) {
+	cardOne.classList.add("unmatch-animate", "animated", "infinite", "wobble");
+	cardTwo.classList.add("unmatch-animate", "animated", "infinite", "wobble");
 }
 
 // lock the card in the open position
 function lockCard(card) {
-	card.classList.add("match");
+	card.setAttribute("class", "card open show match");
 }
 
 // hide the card if not a match
 function hideCard(card) {
-	card.classList.remove("open", "show");
+	card.setAttribute("class", "card");
 }

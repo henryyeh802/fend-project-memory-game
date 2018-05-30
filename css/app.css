@@ -81,6 +81,11 @@ h1 {
     font-size: 33px;
 }
 
+.deck .card.unmatch-animate {
+    background: rgb(255, 117, 26);
+}
+
+
 /*
  * Styles for the Score Panel
  */
@@ -155,6 +160,10 @@ h1 {
     color: white;
     border-radius: 5px;
     margin-top: 20px;
+}
+
+.play-again:hover {
+    cursor: pointer;
 }
 
 .congrats-text p {

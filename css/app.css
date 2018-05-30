@@ -89,10 +89,22 @@ h1 {
 /*
  * Styles for the Score Panel
  */
+.subtitle {
+    display: flex;
+    width: 500px;
+}
+
+.timer {
+    width: 25%;
+}
 
 .score-panel {
+    display: flex;
+    justify-content: space-around;
     text-align: left;
-    width: 345px;
+    /*width: 345px;*/
+    /*width: 380px;*/
+    width: 75%;
     margin-bottom: 10px;
 }
 

@@ -12,12 +12,14 @@ const restartGame = document.querySelector(".restart");
 const deck = document.querySelector(".deck");
 const playAgain = document.querySelector(".play-again");
 const congrats = document.querySelector(".congrats-msg");
+const timer = document.querySelector(".timer");
 
 let firstStar = document.querySelector('.stars li i');
 let secondStar = document.querySelector('.stars li:nth-child(2) i');
 let openedCards = [];
 let moveCount = 0;
-
+let time = 0;
+let timeStarted = false;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -28,6 +30,7 @@ gameInit();
 
 function gameInit() {
 	moveCount = 0;
+	setTimer();
 	displayMoves();
 	resetStars();
 	shuffle(cards);
@@ -62,6 +65,30 @@ function shuffle(array) {
     return array;
 }
 
+// Timer Initialization
+
+function setTimer() {
+	timer.innerHTML = "Time: " + time;
+}
+
+// Timer increment start
+
+let intervId;
+function timerStart() {
+	intervId = setInterval(function() {
+		time++;
+		setTimer();
+	}, 1000);
+}
+
+// Timer Stop
+function timerStop() {
+	clearInterval(intervId);
+	time = 0;
+	timeStarted = false;
+	setTimer();
+}
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -79,6 +106,10 @@ deck.addEventListener('click', function(e){
 
 	// make sure the click is on either <li> or <i>
 	if (currentCard.classList.contains("deck") === false) {
+		if (timeStarted === false) {
+			timerStart();
+			timeStarted = true;
+		}		
 		// set the currentCard to <li> if clicked on <i>
 		if (currentCard.classList.contains("fa")) {
 			currentCard = currentCard.parentElement;
@@ -104,11 +135,13 @@ deck.addEventListener('click', function(e){
 playAgain.addEventListener('click', function(){
 	congrats.classList.add("hide");
 	gameInit();
+	timerStop();
 })
 
 // Restart the game
 restartGame.addEventListener('click', function(){
 	gameInit();
+	timerStop();
 });
 
 // display stars based on current moveCount
@@ -142,7 +175,7 @@ function calMove() {
 function displayMoves() {
 	let moves = document.querySelectorAll(".moves");
 	moves.forEach(function(move){
-		move.innerHTML = moveCount;
+		move.innerHTML = moveCount + " Moves";
 	})
 }
 

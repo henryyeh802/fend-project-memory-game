@@ -26,8 +26,8 @@ The game ends once all cards have been correctly matched.
 ## Dependencies/Resources
 
 * fend-project-memory-game starter code forked from [udacity/fend-project-memory-game](https://github.com/udacity/fend-project-memory-game)
-* font-awesome from [link](https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css)
-* Google-fone from [link](https://fonts.googleapis.com/css?family=Coda)
-* animate.css from [link](https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css)
-* Shuffle function from [link](http://stackoverflow.com/a/2450976)
-* Background pattern, geometry2.png, from Subtle Patterns
+* font-awesome from [maxcdn.bootstrapcdn.com](https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css)
+* Google-fone from [fonts.googleapis.com](https://fonts.googleapis.com/css?family=Coda)
+* animate.css from [cdn.jsdelivr.net](https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css)
+* Shuffle function from [stackoverflow.com](http://stackoverflow.com/a/2450976)
+* Background pattern, geometry2.png, from [Subtle Patterns](https://www.toptal.com/designers/subtlepatterns/)

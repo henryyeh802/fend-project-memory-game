@@ -20,6 +20,8 @@ let openedCards = [];
 let moveCount = 0;
 let time = 0;
 let timeStarted = false;
+let intervId;
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -28,8 +30,11 @@ let timeStarted = false;
  */
 gameInit();
 
+// Game initialize
 function gameInit() {
 	moveCount = 0;
+	time = 0;
+	timeStarted = false;
 	setTimer();
 	displayMoves();
 	resetStars();
@@ -37,6 +42,7 @@ function gameInit() {
 	cardInit();
 }
 
+// Set cards to initial state
 function cardInit() {
 	let cardsSel = document.querySelectorAll(".card");	
 	
@@ -66,14 +72,11 @@ function shuffle(array) {
 }
 
 // Timer Initialization
-
 function setTimer() {
 	timer.innerHTML = "Time: " + time;
 }
 
 // Timer increment start
-
-let intervId;
 function timerStart() {
 	intervId = setInterval(function() {
 		time++;
@@ -84,9 +87,6 @@ function timerStart() {
 // Timer Stop
 function timerStop() {
 	clearInterval(intervId);
-	time = 0;
-	timeStarted = false;
-	setTimer();
 }
 
 /*
@@ -127,6 +127,7 @@ deck.addEventListener('click', function(e){
 		// display a message with the final score if all cards have matched
 		if (openedCards.length === 16) {
 			congrats.classList.remove("hide");
+			timerStop();
 		}		
 	}	
 });
@@ -135,13 +136,12 @@ deck.addEventListener('click', function(e){
 playAgain.addEventListener('click', function(){
 	congrats.classList.add("hide");
 	gameInit();
-	timerStop();
 })
 
 // Restart the game
 restartGame.addEventListener('click', function(){
-	gameInit();
 	timerStop();
+	gameInit();
 });
 
 // display stars based on current moveCount
@@ -158,6 +158,7 @@ function calStars() {
 	}
 }
 
+// Reset the Stars to 3
 function resetStars() {
 	let stars = document.querySelectorAll('.stars li i');
 	stars.forEach(function(star) {
@@ -172,6 +173,7 @@ function calMove() {
 	displayMoves();
 }
 
+// Display current Moves
 function displayMoves() {
 	let moves = document.querySelectorAll(".moves");
 	moves.forEach(function(move){

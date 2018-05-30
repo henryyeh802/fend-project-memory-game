@@ -85,6 +85,9 @@ h1 {
     background: rgb(255, 117, 26);
 }
 
+.not-clickable {
+    pointer-events: none;
+}
 
 /*
  * Styles for the Score Panel

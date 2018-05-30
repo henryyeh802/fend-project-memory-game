@@ -200,6 +200,7 @@ function matchCards(currentCard, openedCards) {
 	if ((totalCardInList > 1) && (cardToCompare.classList.contains("match") === false)) {
 		let iconOfCurrentCard = currentCard.childNodes[0].classList.value;
 		let iconOfCardToCompare = cardToCompare.childNodes[0].classList.value;
+		deckNotClickable();
 		
 		// cards match, play animate and lock the card in the open position
 		if (iconOfCurrentCard === iconOfCardToCompare) {
@@ -208,7 +209,8 @@ function matchCards(currentCard, openedCards) {
 			matchAnimate(currentCard, cardToCompare);
 			setTimeout(function() {
 				lockCard(currentCard);
-				lockCard(cardToCompare)				
+				lockCard(cardToCompare);
+				deckClickable();
 			}, 500);
 		} else {
 			// cards do not match, play animation then remove the cards from the list and hide the card's symbol
@@ -218,9 +220,20 @@ function matchCards(currentCard, openedCards) {
 				hideCard(cardToCompare);
 				openedCards.pop();
 				openedCards.pop();
+				deckClickable();
 			}, 500);
-		}	
+		}
 	}
+}
+
+function deckNotClickable() {
+	let deck = document.querySelector(".deck");
+	deck.classList.add("not-clickable");
+}
+
+function deckClickable() {
+	let deck = document.querySelector(".deck");
+	deck.classList.remove("not-clickable");
 }
 
 // play animate if cards match

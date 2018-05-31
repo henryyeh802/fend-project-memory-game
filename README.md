@@ -4,7 +4,7 @@
 
 * [Introductions](#introductions)
 * [GameFlow](#gameflow)
-* [Dependencies](#Dependencies)
+* [Dependencies](#dependencies)
 
 ## Introductions
 
